@@ -156,19 +156,17 @@
       if (saved[lastProject]) {
         projectName = lastProject;
         loadData(saved[lastProject]);
+        // Resolve cloud ID in background
+        if (typeof SupabaseStore !== 'undefined' && SupabaseStore.isReady()) {
+          SupabaseStore.loadProjectByName(lastProject).then(p => {
+            if (p) cloudProjectId = p.id;
+          });
+        }
         return;
       }
     }
-    // Then try the local .gantt file
-    try {
-      const r = await fetch('LAILA_NUTRA_Clean_Phase_Plan_With_Daily_Hours.gantt');
-      if (r.ok) {
-        projectName = 'LAILA NUTRA';
-        loadData(await r.text());
-        return;
-      }
-    } catch (_) {}
-    renderSavedProjects();
+    // Show saved projects (local + cloud) and empty state
+    await renderSavedProjects();
     emptyState.classList.remove('hidden');
     appEl.classList.add('hidden');
   }
