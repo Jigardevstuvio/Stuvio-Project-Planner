@@ -1,6 +1,6 @@
 /**
- * Gantt Chart Editor — Full-featured .gantt file editor
- * Compatible with OnlineGantt.com file format
+ * Stuvio Project Planner — Full-featured project planning & Gantt chart editor
+ * Cloud synced via Supabase
  */
 (() => {
   'use strict';
