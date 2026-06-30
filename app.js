@@ -2227,10 +2227,10 @@
       if (newStart) task.EndDate = addDaysISO(newStart, dur - 1);
     }
 
-    const alloc = parseFloat($('te-alloc-hrs').value);
-    if (!isNaN(alloc) && alloc >= 0) task.AllocatedHours = alloc;
-    const spent = parseFloat($('te-spent-hrs').value);
-    if (!isNaN(spent) && spent >= 0) task.SpentHours = spent;
+    const allocRaw = $('te-alloc-hrs').value.trim();
+    task.AllocatedHours = allocRaw === '' ? 0 : Math.max(0, parseFloat(allocRaw) || 0);
+    const spentRaw = $('te-spent-hrs').value.trim();
+    task.SpentHours = spentRaw === '' ? 0 : Math.max(0, parseFloat(spentRaw) || 0);
     const prog = parseInt($('te-progress').value);
     if (!isNaN(prog)) task.Progress = Math.max(0, Math.min(100, prog));
     task.Predecessor = $('te-dep').value.trim();
